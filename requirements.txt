@@ -1,0 +1,8 @@
+openai
+langchain
+chromadb
+flask
+langchain-community
+langchain-openai
+langchain-chroma
+bs4

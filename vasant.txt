@@ -1,0 +1,9 @@
+hi my name is vasant.
+I am masters student .
+I have created a custom llm agent. 
+It just took me a day to do say .
+I have developed it with the help of openai, langchain and fastapi .
+I am 27 years old. 
+I have a cgpa of 4. 
+I like coding. 
+I also like playing cricket.
