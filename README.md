@@ -14,7 +14,15 @@ Requirements
     Python 3.10 or later.
     Node.js and npm (for the frontend).
     Git for version control.
+Set Up the OpenAI API Key
 
+    Obtain your OpenAI API key from the OpenAI API platform.
+    Export the API key as an environment variable
+
+export OPENAI_API_KEY=your_api_key_here
+
+Replace your_api_key_here with your actual API key.
+The application will automatically read the API key from the environment. Ensure that the key is secure and not hardcoded into the codebase.
 
 1. Clone the Repository
      git clone https://github.com/vasantchaitanyamahipala/custom_llm.git
