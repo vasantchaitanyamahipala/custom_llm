@@ -21,7 +21,7 @@ def add_document_to_chroma(file_path):
         loader = TextLoader(file_path)
         doc = loader.load()
 
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
         text_chunks = text_splitter.split_documents(doc)
 
         vector_db.add_documents(text_chunks)

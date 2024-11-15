@@ -3,6 +3,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from chat_bot import chatbot_response
 from fastapi.middleware.cors import CORSMiddleware
+import time
+
 
 app = FastAPI()
 
@@ -42,6 +44,8 @@ def preprocess_response(response: str) -> str:
 
     return response.strip()
 
+
+
 @app.post("/")
 @app.post("/chat")
 async def root(input: MessageRequest):
@@ -54,6 +58,7 @@ async def root(input: MessageRequest):
         return {"response": processed_response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
+
 
 # Test the function
 if __name__ == "__main__":
