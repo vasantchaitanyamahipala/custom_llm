@@ -1,3 +1,16 @@
+
+Custom LLM 
+![image](https://github.com/user-attachments/assets/2b1a8120-d98c-40ad-9276-84f599701100)
+
+ChatGPT Response for the same question 
+![image](https://github.com/user-attachments/assets/ec625261-fd5b-4412-ae7f-594885cb6572)
+
+
+
+
+
+
+
 Custom LLM-Powered Assistant
 
 This repository contains a project that builds a custom intelligent assistant powered by LLMs (Large Language Models) to assist contractors and builders in making informed decisions about building materials. The assistant integrates various technologies to handle natural language queries, recommend materials, answer technical questions, and provide specifications.
