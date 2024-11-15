@@ -10,7 +10,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Update this to specific origins in production
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -60,7 +60,3 @@ async def root(input: MessageRequest):
         raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
 
 
-# Test the function
-if __name__ == "__main__":
-    test_input = "Arbor Homes is known for several key aspects in the construction industry: 1. Home Building: - Specializes in residential home construction. - Focuses on creating energy-efficient and sustainable homes. 2. Customization: - Offers a variety of floor plans and design options. - Allows buyers to personalize their homes to fit their needs. 3. Quality Craftsmanship: - Emphasizes high-quality materials and construction techniques. - Often incorporates modern building practices and technologies. 4. Community Development: - Engages in developing entire neighborhoods. - Aims to create cohesive communities with amenities. 5. Customer Service: - Known for strong customer support throughout the home buying process. - Provides warranties and post-sale services. These factors contribute to Arbor Homes' reputation in the residential construction market."
-    print(preprocess_response(test_input))
