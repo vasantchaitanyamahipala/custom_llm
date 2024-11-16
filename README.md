@@ -1,11 +1,4 @@
 
-Custom LLM 
-![image](https://github.com/user-attachments/assets/2b1a8120-d98c-40ad-9276-84f599701100)
-
-ChatGPT Response for the same question 
-![image](https://github.com/user-attachments/assets/ec625261-fd5b-4412-ae7f-594885cb6572)
-
-
 
 
 
