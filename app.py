@@ -1,9 +1,12 @@
 import re
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from chat_bot import chatbot_response
 from fastapi.middleware.cors import CORSMiddleware
+import json
 import time
+
 
 
 app = FastAPI()
@@ -18,31 +21,12 @@ app.add_middleware(
 
 class MessageRequest(BaseModel):
     message: str
+def generate_event(user_input):
 
-def preprocess_response(response: str) -> str:
-    # Remove Markdown formatting
-    response = re.sub(r'\*\*(.*?)\*\*', r'\1', response)  # Remove bold
-    response = re.sub(r'\*(.*?)\*', r'\1', response)      # Remove italics
-    response = re.sub(r'`(.*?)`', r'\1', response)        # Remove inline code
-    response = re.sub(r'~~(.*?)~~', r'\1', response)      # Remove strikethrough
-    response = re.sub(r'\[(.*?)\]\(.*?\)', r'\1', response)  # Remove links
-    response = re.sub(r'!\[(.*?)\]\(.*?\)', r'\1', response) # Remove images
-    response = re.sub(r'#+ ', '', response)               # Remove headers
-    response = re.sub(r'> ', '', response)                # Remove blockquotes
-    response = re.sub(r'\n\s*\n', '\n', response)         # Remove extra newlines
-
-    # Clean up numbered lists and hyphens
-    response = re.sub(r"(\d+\.)", r"\n\1", response)  # Add newline before numbered lists
-    response = re.sub(r"-", "- ", response)
-
-    # Ensure paragraphs are separated by new lines
-    response = re.sub(r'(\.)(\s+)(\d+\.)', r'\1\n\n\3', response)  # Add newline after periods before new numbers
-    response = re.sub(r'(\.)(\s+)(-)', r'\1\n\n\3', response)  # Add newline after periods before hyphens
-
-    # Add newlines after each period followed by a capital letter (indicating a new sentence)
-    response = re.sub(r'(\.)(\s+)([A-Z])', r'\1\n\n\3', response)
-
-    return response.strip()
+    for token in chatbot_response(user_input, stream_to_terminal=False):
+        data= json.dumps({"message": token})
+        yield f"data: {data}\n\n" 
+    yield "event: end\n{} \n\n"    
 
 
 
@@ -50,12 +34,15 @@ def preprocess_response(response: str) -> str:
 @app.post("/chat")
 async def root(input: MessageRequest):
     user_input = input.message
+    print(user_input)
     if not user_input:
         raise HTTPException(status_code=400, detail="Message is empty")
     try:
-        raw_response = chatbot_response(user_input)
-        processed_response = preprocess_response(raw_response)
-        return {"response": processed_response}
+        
+        return StreamingResponse(
+        generate_event(user_input),
+        media_type="text/event-stream"
+    )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
 
